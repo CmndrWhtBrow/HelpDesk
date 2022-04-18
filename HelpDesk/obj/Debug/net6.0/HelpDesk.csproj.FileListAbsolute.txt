@@ -1,0 +1,5 @@
+C:\Code\SolidSyntax\betterBack\pairCodingBacklog\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.csproj.AssemblyReference.cache
+C:\Code\SolidSyntax\betterBack\pairCodingBacklog\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.GeneratedMSBuildEditorConfig.editorconfig
+C:\Code\SolidSyntax\betterBack\pairCodingBacklog\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.AssemblyInfoInputs.cache
+C:\Code\SolidSyntax\betterBack\pairCodingBacklog\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.AssemblyInfo.cs
+C:\Code\SolidSyntax\betterBack\pairCodingBacklog\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.csproj.CoreCompileInputs.cache

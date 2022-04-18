@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "46ba6eb9-5570-43f7-91fa-2d5398da0ef4": {
+      "ProjectGuid": "46ba6eb9-5570-43f7-91fa-2d5398da0ef4",
+      "DisplayName": "HelpDesk",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
