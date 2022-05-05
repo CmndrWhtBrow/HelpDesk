@@ -5,7 +5,7 @@ using HelpDesk.Services.Abstractions;
 namespace HelpDesk.Services
 {
 
-    public class UserService
+    public class UserService : IUserService
     {
 
         private IDataContext _dataContext;
@@ -23,7 +23,7 @@ namespace HelpDesk.Services
        * Delete Ticket? -- DONE
        */
 
-        public User AddUser( string name, string userName, string email)
+        public User AddUser(string name, string userName, string email)
         {
             try
             {
@@ -44,28 +44,28 @@ namespace HelpDesk.Services
             {
                 return null;
             }
-        
+
         }
 
-        public bool AddTicket ( int userId, string subject, string description, TicketPriority priority) //TODO
+        public bool AddTicket(int userId, string subject, string description, TicketPriority priority) //TODO
         {
             try
             {
                 if (_dataContext.CurrentState.Tickets == null)
                 {
-                    _dataContext.CurrentState.Tickets = new List<Technician>();
+                    _dataContext.CurrentState.Tickets = new List<Ticket>();
                 }
 
                 int ticketId = _dataContext.CurrentState.Technicians?.OrderByDescending(t => t.Id).FirstOrDefault()?.Id ?? 0;
                 int newticketId = ticketId + 1;
-                Ticket newTicket = new Ticket() { CreatedAt = DateTime.Now, Id = newticketid, Subject = subject, Description = description, Priority = priority, UserId = userId };
+                Ticket newTicket = new Ticket() { CreatedAt = DateTime.Now, Id = newticketId, Subject = subject, Description = description, Priority = priority, UserId = userId };
                 _dataContext.CurrentState.Tickets?.Add(newTicket);
                 _dataContext.SaveState();
-                return newTicket;
+                return true;
             }
             catch (Exception ex)
             {
-                return null;
+                return false;
             }
         }
 
@@ -85,7 +85,7 @@ namespace HelpDesk.Services
                     return false;
                 }
 
-                User? user = _dataContext.CurrentState.Users.FirstOrDefault( u => u.Id == userID);
+                User? user = _dataContext.CurrentState.Users.FirstOrDefault(u => u.Id == userId);
                 if (user == null)
                 {
                     //User does not exist
@@ -105,11 +105,11 @@ namespace HelpDesk.Services
 
         }
 
-        public bool RemoveUser(int userId )
+        public bool RemoveUser(int userId)
         {
             try
             {
-                var user = GetUser(userId); 
+                var user = GetUser(userId);
                 if (user == null)
                 {
                     return true;
@@ -123,14 +123,14 @@ namespace HelpDesk.Services
 
                 if (user.Tickets.Any())
                 {
-                     user.Tickets.ForEach(ticket =>
-                    {
-                        var dataTicket = _dataContext.CurrentState.Tickets.FirstOrDefault(u => u.Id == ticket.Id);
-                        if (dataTicket != null)
-                        {
-                            dataTicket.UserId = null;
-                        }
-                    });
+                    user.Tickets.ForEach(ticket =>
+                   {
+                       var dataTicket = _dataContext.CurrentState.Tickets.FirstOrDefault(u => u.Id == ticket.Id);
+                       if (dataTicket != null)
+                       {
+                           dataTicket.UserId = 0;
+                       }
+                   });
                 }
                 _dataContext.CurrentState.Users.Remove(dataUser);
                 _dataContext.SaveState();
@@ -143,7 +143,7 @@ namespace HelpDesk.Services
             }
         }
 
-        public User GetUser (int userId)
+        public User GetUser(int userId)
         {
             try
             {
@@ -175,7 +175,7 @@ namespace HelpDesk.Services
             }
         }
 
-        public User GetTicket(int userId, int ticketId) 
+        public User GetTicket(int userId, int ticketId) //TODO
         {
             try
             {
@@ -206,7 +206,7 @@ namespace HelpDesk.Services
         }
 
 
-        public bool RemoveTicket(int userId, int ticketId) 
+        public bool RemoveTicket(int userId, int ticketId)
         {
             try
             {
@@ -244,10 +244,74 @@ namespace HelpDesk.Services
             }
         }
 
+        public bool ViewUsers()
+        {
+            try
+            {
+                if (_dataContext.CurrentState.Users == null)
+                {
+                    return false;
+                }
+                if (_dataContext.CurrentState.Users.Any())
+                {
+                    foreach (User _user in _dataContext.CurrentState.Users)
+                    {
+                        Console.WriteLine("Username: {0} ", _user.UserName);
+                        Console.WriteLine("Email: {0}", _user.Email);
+                        Console.WriteLine("ID number: {0} ", _user.Id);
+                        Console.WriteLine("");
+                    }
+
+                    System.Console.WriteLine("Select a User (by ID number):");
+                    return true;
+                }
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
 
 
+        public void ViewUserTickets(int userId)
+        {
+            try
+            {
+                var user = GetUser(userId);
+                if (user == null)
+                {
+                    Console.WriteLine("You have no tickets at this time.");
+                }
 
+                if (user.Tickets.Any())
+                {
+                    user.Tickets.ForEach(ticket =>
+                    {
+                        var dataTicket = _dataContext.CurrentState.Tickets.FirstOrDefault(t => t.Id == userId);
+                        if (dataTicket != null)
+                        {
+                            Console.WriteLine("ID number: {0} ", dataTicket.Id); //ID
+                            Console.WriteLine("Subject: {0} ", dataTicket.Subject);   //subject
+                            Console.WriteLine("Description: {0}", dataTicket.Description);  // description
+                            Console.WriteLine("Priority: {0}", dataTicket.Priority);  // priority
+                            Console.WriteLine("Created At: {0}", dataTicket.CompletedAt);  // createdAt
 
+                            Console.WriteLine("");
+                        }
+                    });
+                }
+                _dataContext.SaveState();
+
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
 
 
     }

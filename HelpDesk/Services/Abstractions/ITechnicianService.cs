@@ -10,5 +10,9 @@ namespace HelpDesk.Services.Abstractions
         bool RemoveTechnician(int technicianId, int? reassignedTechnicianId = null);
         bool RemoveTechnicianFromTicket(int ticketId, int technicianId);
         bool UpdateTechnician(int technicianId, string name, TechnicianRole role);
+        bool ViewTechnicians();
+        bool IsCompleted(int ticketId, int technicianId);
+        void ViewOpenTickets();
+        void GetTechnicianTickets(int technicianId);
     }
 }
