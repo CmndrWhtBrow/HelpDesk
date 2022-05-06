@@ -3,3 +3,8 @@ C:\Code\SolidSyntax\betterBack\pairCodingBacklog\HelpDesk\HelpDesk\obj\Debug\net
 C:\Code\SolidSyntax\betterBack\pairCodingBacklog\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.AssemblyInfoInputs.cache
 C:\Code\SolidSyntax\betterBack\pairCodingBacklog\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.AssemblyInfo.cs
 C:\Code\SolidSyntax\betterBack\pairCodingBacklog\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.csproj.CoreCompileInputs.cache
+C:\Users\brgay\c#\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.csproj.AssemblyReference.cache
+C:\Users\brgay\c#\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\brgay\c#\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.AssemblyInfoInputs.cache
+C:\Users\brgay\c#\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.AssemblyInfo.cs
+C:\Users\brgay\c#\HelpDesk\HelpDesk\obj\Debug\net6.0\HelpDesk.csproj.CoreCompileInputs.cache

@@ -233,5 +233,136 @@ namespace HelpDesk.Services
                 return null;
             }
         }
+
+        public bool ViewTechnicians()
+        {
+            try
+            {   if (_dataContext.CurrentState.Technicians == null)
+                {
+                    return true;
+                }
+                if (_dataContext.CurrentState.Technicians.Any())
+                {
+                    foreach (Technician _technician in _dataContext.CurrentState.Technicians)
+                    {
+                      Console.WriteLine("Technician name: {0} ", _technician.Name);
+                      Console.WriteLine("ID number: {0} ", _technician.Id);
+                      Console.WriteLine("Job title: {0}", _technician.Role);
+                      Console.WriteLine("");
+                    }
+
+                      Console.WriteLine("Select a technician (by ID number):");
+                      return true;
+                 }
+
+                return true;
+               
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool IsCompleted(int ticketId, int technicianId) 
+        {
+            try
+            {
+                var technician = GetTechnician(technicianId);
+                if (technician == null)
+                {
+                    return true;
+                }
+
+                if (technician.Tickets.Any())
+                {
+                    technician.Tickets.ForEach(ticket =>
+                    {
+                        var dataTicket = _dataContext.CurrentState.Tickets.FirstOrDefault(t => t.Id == ticketId);
+                        if (dataTicket != null)
+                        {
+                          dataTicket.CompletedAt = DateTime.Now;
+                        }
+                    });
+                }
+                _dataContext.SaveState();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public void ViewOpenTickets()
+        {
+            try
+            {
+                if (_dataContext.CurrentState.Tickets == null)
+                {
+                    Console.WriteLine("There are no open tickets at this time.");
+                }
+                if (_dataContext.CurrentState.Tickets.Any())
+                {
+                    foreach (Ticket _ticket in _dataContext.CurrentState.Tickets)
+                    {
+                        if (_ticket.IsAssigned != true)
+                        Console.WriteLine("ID number: {0} ", _ticket.Id); //ID
+                        Console.WriteLine("Subject: {0} ", _ticket.Subject);   //subject
+                        Console.WriteLine("Description: {0}", _ticket.Description);  // description
+                        Console.WriteLine("Priority: {0}", _ticket.Priority);  // priority
+                        Console.WriteLine("Created At: {0}", _ticket.CompletedAt);  // createdAt
+
+                        Console.WriteLine("");
+                    }
+
+                    Console.WriteLine("Would you like to be assigned a ticket?");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+
+        public void GetTechnicianTickets(int technicianId)
+        {
+            try
+            {
+                var technician = GetTechnician(technicianId);
+                if (technician == null)
+                {
+                    Console.WriteLine("You have no assigned tickets at this time.");
+                }
+
+                if (technician.Tickets.Any())
+                {
+                    technician.Tickets.ForEach(ticket =>
+                    {
+                        var dataTicket = _dataContext.CurrentState.Tickets.FirstOrDefault(t => t.Id == technicianId);
+                        if (dataTicket != null)
+                        {
+                            Console.WriteLine("ID number: {0} ", dataTicket.Id); //ID
+                            Console.WriteLine("Subject: {0} ", dataTicket.Subject);   //subject
+                            Console.WriteLine("Description: {0}", dataTicket.Description);  // description
+                            Console.WriteLine("Priority: {0}", dataTicket.Priority);  // priority
+                            Console.WriteLine("Created At: {0}", dataTicket.CompletedAt);  // createdAt
+
+                            Console.WriteLine("");
+                        }
+                    });
+                }
+                _dataContext.SaveState();
+
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
     }
 }

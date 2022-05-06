@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\HelpDesk",
+    "\\HelpDesk\\Configurations",
+    "\\HelpDesk\\Models",
+    "\\HelpDesk\\Services",
+    "\\HelpDesk\\Services\\Abstractions",
+    "\\HelpDesk\\Services\\Extenstions"
+  ],
+  "SelectedNode": "\\HelpDesk\\Services\\UserService.cs",
+  "PreviewInSolutionExplorer": false
+}

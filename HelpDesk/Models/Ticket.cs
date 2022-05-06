@@ -9,7 +9,7 @@ namespace HelpDesk.Models
         public string? Description { get; set; }
         public TicketPriority Priority { get; set; }
         public DateTime? CreatedAt { get; set; }
-        public int UserId { get; set; }
+        public int UserId { get; set; } //comment out?
         public int? TechnicianId { get; set; }
         public DateTime? AssignedAt { get; set; }
         public bool IsAssigned => AssignedAt != null;
@@ -19,5 +19,8 @@ namespace HelpDesk.Models
         public bool IsDeleted => DeletedAt != null;
         [JsonIgnore]
         public List<TicketRemark> Remarks { get; set; } = new List<TicketRemark>();
+        public User user { get; set; } 
+        public Technician technician { get; set; }
+
     }
 }
